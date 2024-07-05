@@ -5,6 +5,7 @@ import br.com.josepagnossim.restaurant.models.entities.Client;
 import br.com.josepagnossim.restaurant.models.services.ClientService;
 import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,8 +18,8 @@ public class ClientController {
     @Autowired
     ClientService clientService;
 
-    @Id
-    private final UUID id = UUID.randomUUID();
+//    @Id
+//    private final UUID id = UUID.randomUUID();
 
     @PostMapping
     public Client create(@RequestBody ClientDto clientDto) {
@@ -46,11 +47,8 @@ public class ClientController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteClient(@PathVariable UUID id) {
+    public ResponseEntity<String> deleteClient(@PathVariable UUID id) {
         clientService.deleteClient(id);
+        return ResponseEntity.ok("Client deleted");
     }
-
-
-
-
 }
