@@ -37,6 +37,10 @@ public class DrinkService {
         return drinkRepository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
     }
 
+    public List<Drink> findByNameDrinkContainingIgnoreCase(String nameDrink){
+        return drinkRepository.findByNameDrinkContainingIgnoreCase(nameDrink);
+    }
+
     public Drink update(UUID id, DrinkDto drinkDto) {
         Optional<Drink> optionaldrink = drinkRepository.findById(id);
         if (optionaldrink.isPresent()) {

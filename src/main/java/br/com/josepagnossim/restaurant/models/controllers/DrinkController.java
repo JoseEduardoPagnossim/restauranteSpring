@@ -3,6 +3,7 @@ package br.com.josepagnossim.restaurant.models.controllers;
 
 import br.com.josepagnossim.restaurant.models.dtos.DrinkDto;
 import br.com.josepagnossim.restaurant.models.entities.Drink;
+import br.com.josepagnossim.restaurant.models.services.ClientService;
 import br.com.josepagnossim.restaurant.models.services.DrinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,8 @@ public class DrinkController {
 
     @Autowired
     private DrinkService drinkService;
+    @Autowired
+    private ClientService clientService;
 
     @PostMapping
     public Drink create(@RequestBody DrinkDto drinkdto) {
@@ -31,6 +34,11 @@ public class DrinkController {
     @GetMapping("/{id}")
     public Drink findById(@PathVariable UUID id) {
         return drinkService.findById(id);
+    }
+
+    @GetMapping("/name/{drinkName}")
+    public List<Drink> findByDrinkName(@PathVariable String drinkName){
+        return drinkService.findByNameDrinkContainingIgnoreCase(drinkName);
     }
 
     @PutMapping("/{id}")
