@@ -1,9 +1,8 @@
-package br.com.josepagnossim.restaurant.models.controllers;
+package br.com.josepagnossim.restaurant.controllers;
 
 import br.com.josepagnossim.restaurant.models.dtos.ClientDto;
 import br.com.josepagnossim.restaurant.models.entities.Client;
-import br.com.josepagnossim.restaurant.models.services.ClientService;
-import jakarta.persistence.Id;
+import br.com.josepagnossim.restaurant.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

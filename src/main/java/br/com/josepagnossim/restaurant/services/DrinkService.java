@@ -1,4 +1,4 @@
-package br.com.josepagnossim.restaurant.models.services;
+package br.com.josepagnossim.restaurant.services;
 
 import br.com.josepagnossim.restaurant.models.dtos.DrinkDto;
 import br.com.josepagnossim.restaurant.models.entities.Drink;
@@ -24,7 +24,7 @@ public class DrinkService {
         Drink drink = new Drink();
         drink.setId(UUID.randomUUID());
         drink.setNameDrink(drinkDto.nameDrink());
-        drink.setPrice(drinkDto.price());
+        drink.setPrice(drinkDto.priceDrink());
         drink.setBrand(drinkDto.brand());
         return drinkRepository.save(drink);
     }
@@ -46,7 +46,7 @@ public class DrinkService {
         if (optionaldrink.isPresent()) {
             Drink drink = findById(id);
             drink.setNameDrink(drinkDto.nameDrink());
-            drink.setPrice(drinkDto.price());
+            drink.setPrice(drinkDto.priceDrink());
             drink.setBrand(drinkDto.brand());
             return drinkRepository.save(drink);
         } else {

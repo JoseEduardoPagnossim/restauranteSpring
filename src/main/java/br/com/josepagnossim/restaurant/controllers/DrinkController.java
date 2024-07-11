@@ -1,10 +1,10 @@
-package br.com.josepagnossim.restaurant.models.controllers;
+package br.com.josepagnossim.restaurant.controllers;
 
 
 import br.com.josepagnossim.restaurant.models.dtos.DrinkDto;
 import br.com.josepagnossim.restaurant.models.entities.Drink;
-import br.com.josepagnossim.restaurant.models.services.ClientService;
-import br.com.josepagnossim.restaurant.models.services.DrinkService;
+import br.com.josepagnossim.restaurant.services.ClientService;
+import br.com.josepagnossim.restaurant.services.DrinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

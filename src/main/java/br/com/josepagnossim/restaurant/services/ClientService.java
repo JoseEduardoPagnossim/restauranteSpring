@@ -1,4 +1,4 @@
-package br.com.josepagnossim.restaurant.models.services;
+package br.com.josepagnossim.restaurant.services;
 
 import br.com.josepagnossim.restaurant.models.dtos.ClientDto;
 import br.com.josepagnossim.restaurant.models.entities.Client;
