@@ -6,12 +6,10 @@ import jakarta.persistence.Id;
 import java.util.UUID;
 
 @Entity
-public class Dish {
+public class Dish extends MenuItens{
 
     @Id
     private UUID id;
-    private String nameDish;
-    private double priceDish;
     private String description;
 
     public UUID getId() {
@@ -21,27 +19,14 @@ public class Dish {
     public void setId(UUID id) {
         this.id = id;
     }
-    public String getNameDish() {
-        return nameDish;
-    }
 
-    public void setNameDish(String nameDish) {
-        this.nameDish = nameDish;
-    }
 
-    public double getPriceDish() {
-        return priceDish;
-    }
+        public String getDescription () {
+            return description;
+        }
 
-    public void setPriceDish(double priceDish) {
-        this.priceDish = priceDish;
-    }
+        public void setDescription (String description){
+            this.description = description;
+        }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

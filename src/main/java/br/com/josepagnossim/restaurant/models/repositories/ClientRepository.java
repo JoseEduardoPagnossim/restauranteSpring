@@ -12,6 +12,9 @@ import java.util.UUID;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, UUID> {
 
-    @Query("SELECT c FROM Client c WHERE LOWER(c.name) LIKE LOWER(CONCAT('%', :name, '%'))")
+    //@Query("SELECT c FROM Client c WHERE LOWER(c.name) LIKE LOWER(CONCAT('%', :name, '%'))")
     List<Client> findByNameContainingIgnoreCase(@Param("name") String name);
+
+    List<Client> findByDocumentContainingIgnoreCase(@Param("document") String document);
+
 }

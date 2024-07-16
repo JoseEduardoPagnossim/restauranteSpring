@@ -7,16 +7,10 @@ import jakarta.persistence.Id;
 import java.util.UUID;
 
 @Entity
-public class Drink {
+public class Drink extends MenuItens{
 
     @Id
     UUID id;
-
-    @Column(nullable = false)
-    String nameDrink;
-
-    double price;
-
     String brand;
 
     public UUID getId() {
@@ -25,22 +19,6 @@ public class Drink {
 
     public void setId(UUID id) {
         this.id = id;
-    }
-
-    public String getNameDrink() {
-        return nameDrink;
-    }
-
-    public void setNameDrink(String nameDrink) {
-        this.nameDrink = nameDrink;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 
     public String getBrand() {

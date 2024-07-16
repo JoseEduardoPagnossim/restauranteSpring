@@ -39,8 +39,12 @@ public class ClientService {
         return clientRepository.findById(id).orElseThrow(() -> new RuntimeException("ID not found"));
     }
 
-    public List<Client> findByNameContainingIgnoreCase(String name) {
+    public List<Client> findByName(String name) {
         return clientRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    public List<Client> findByDocument(String document) {
+        return clientRepository.findByDocumentContainingIgnoreCase(document);
     }
 
     public Client updateClient(UUID id, ClientDto clientDto) {

@@ -23,7 +23,8 @@ public class DrinkService {
     public Drink create(DrinkDto drinkDto) {
         Drink drink = new Drink();
         drink.setId(UUID.randomUUID());
-        drink.setNameDrink(drinkDto.nameDrink());
+        drink.setName(drinkDto.nameDrink());
+        drink.setMenuItem(drinkDto.menuItem());
         drink.setPrice(drinkDto.priceDrink());
         drink.setBrand(drinkDto.brand());
         return drinkRepository.save(drink);
@@ -37,15 +38,19 @@ public class DrinkService {
         return drinkRepository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
     }
 
-    public List<Drink> findByNameDrinkContainingIgnoreCase(String nameDrink){
-        return drinkRepository.findByNameDrinkContainingIgnoreCase(nameDrink);
+    public List<Drink> findByNameDrink(String nameDrink){
+        return drinkRepository.findByNameContainingIgnoreCase(nameDrink);
+    }
+
+    public List<Drink> findByBrand(String brand){
+        return drinkRepository.findByBrandContainingIgnoreCase(brand);
     }
 
     public Drink update(UUID id, DrinkDto drinkDto) {
         Optional<Drink> optionaldrink = drinkRepository.findById(id);
         if (optionaldrink.isPresent()) {
             Drink drink = findById(id);
-            drink.setNameDrink(drinkDto.nameDrink());
+            drink.setName(drinkDto.nameDrink());
             drink.setPrice(drinkDto.priceDrink());
             drink.setBrand(drinkDto.brand());
             return drinkRepository.save(drink);

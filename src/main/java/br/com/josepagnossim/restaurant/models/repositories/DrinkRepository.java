@@ -13,7 +13,8 @@ import java.util.UUID;
 @Repository
 public interface DrinkRepository extends JpaRepository<Drink, UUID> {
 
-    @Query("SELECT c FROM Drink c WHERE LOWER(c.nameDrink) LIKE LOWER (CONCAT('%', :drink, '%'))")
-    List<Drink> findByNameDrinkContainingIgnoreCase(@Param("drink") String drink);
+    //@Query("SELECT c FROM Drink c WHERE LOWER(c.name) LIKE LOWER (CONCAT('%', :drink, '%'))")
+    List<Drink> findByNameContainingIgnoreCase(@Param("drink") String drink);
 
+    List<Drink> findByBrandContainingIgnoreCase(@Param("brand") String brand);
 }

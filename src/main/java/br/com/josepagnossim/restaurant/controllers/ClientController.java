@@ -37,7 +37,12 @@ public class ClientController {
 
     @GetMapping("/name/{name}")
     public List<Client> findByName(@PathVariable String name) {
-        return clientService.findByNameContainingIgnoreCase(name);
+        return clientService.findByName(name);
+    }
+
+    @GetMapping("/document/{document}")
+    public List<Client> findByDocument(@PathVariable String document) {
+        return clientService.findByDocument(document);
     }
 
     @PutMapping("/{id}")

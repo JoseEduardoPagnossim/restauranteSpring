@@ -38,7 +38,12 @@ public class DrinkController {
 
     @GetMapping("/name/{drinkName}")
     public List<Drink> findByDrinkName(@PathVariable String drinkName){
-        return drinkService.findByNameDrinkContainingIgnoreCase(drinkName);
+        return drinkService.findByNameDrink(drinkName);
+    }
+
+    @GetMapping("/brand/{brand}")
+    public List<Drink> findByBrand(@PathVariable String brand){
+        return drinkService.findByBrand(brand);
     }
 
     @PutMapping("/{id}")
