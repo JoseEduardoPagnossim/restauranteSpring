@@ -1,3 +1,8 @@
 spring:
   application:
     name: restaurant
+
+#  datasource:
+#    url: jdbc:h2:file:./data/restaurant
+#    driverClassName: org.h2.Driver
+
