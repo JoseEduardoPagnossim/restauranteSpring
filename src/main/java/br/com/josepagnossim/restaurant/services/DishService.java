@@ -16,11 +16,11 @@ import java.util.UUID;
 public class DishService {
 
     @Autowired
-    private DishRepository dishRepository;
-
     public DishService(DishRepository dishRepository) {
         this.dishRepository = dishRepository;
     }
+
+    private final DishRepository dishRepository;
 
     public Dish create(DishDto dishDto) {
         Dish dish = new Dish();
