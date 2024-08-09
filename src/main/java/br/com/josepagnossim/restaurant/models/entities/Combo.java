@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-public class Combo extends MenuItens{
+public class Combo {
 
     @Id
     private UUID id;

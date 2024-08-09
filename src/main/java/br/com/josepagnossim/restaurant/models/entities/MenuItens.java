@@ -1,13 +1,12 @@
 package br.com.josepagnossim.restaurant.models.entities;
 
-import br.com.josepagnossim.restaurant.models.enums.MenuItem;
-import jakarta.persistence.Enumerated;
+import br.com.josepagnossim.restaurant.models.enums.MenuItemType;
 import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class MenuItens {
 
-    private MenuItem menuItem;
+    private MenuItemType menuItem;
     private String name;
     private double price;
 
@@ -27,11 +26,11 @@ public abstract class MenuItens {
         this.price = price;
     }
 
-    public MenuItem getMenuItem() {
+    public MenuItemType getMenuItem() {
         return menuItem;
     }
 
-    public void setMenuItem(MenuItem menuItem) {
+    public void setMenuItem(MenuItemType menuItem) {
         this.menuItem = menuItem;
     }
 }

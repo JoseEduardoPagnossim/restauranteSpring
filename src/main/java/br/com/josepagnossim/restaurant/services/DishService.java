@@ -44,10 +44,6 @@ public class DishService {
             return dishRepository.findByNameContainingIgnoreCase(nameDish);
         }
 //
-//        public List<Drink> findByBrand(String brand){
-//            return drinkRepository.findByBrandContainingIgnoreCase(brand);
-//        }
-//
 //        public Drink update(UUID id, DrinkDto drinkDto) {
 //            Optional<Drink> optionaldrink = drinkRepository.findById(id);
 //            if (optionaldrink.isPresent()) {
