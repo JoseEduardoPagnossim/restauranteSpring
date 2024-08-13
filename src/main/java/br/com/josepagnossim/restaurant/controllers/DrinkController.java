@@ -18,8 +18,6 @@ public class DrinkController {
 
     @Autowired
     private DrinkService drinkService;
-    @Autowired
-    private ClientService clientService;
 
     @PostMapping
     public Drink create(@RequestBody DrinkDto drinkdto) {

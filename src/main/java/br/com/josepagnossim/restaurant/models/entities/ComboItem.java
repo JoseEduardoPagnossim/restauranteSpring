@@ -22,6 +22,10 @@ public class ComboItem extends MenuItens {
         this.itemId = itemId;
     }
 
+    public ComboItem() {
+
+    }
+
     public UUID getId() {
         return id;
     }
@@ -43,8 +47,13 @@ public class ComboItem extends MenuItens {
     }
 
     public void setItemType(ItemType itemType) {
-        this.itemType = itemType;
+        if(itemType == ItemType.COMBO){
+            throw new IllegalArgumentException("Não é possivel adicionar um combo a um combo");
+        } else {
+            this.itemType = itemType;
+        }
     }
+
 
     public UUID getItemId() {
         return itemId;

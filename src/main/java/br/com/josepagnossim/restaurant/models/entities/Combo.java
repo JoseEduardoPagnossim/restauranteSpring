@@ -12,9 +12,22 @@ public class Combo {
 
     @Id
     private UUID id;
+    private String name;
 
     @OneToMany
     private List<ComboItem> itens;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setItens(List<ComboItem> itens) {
+        this.itens = itens;
+    }
 
     public UUID getId() {
         return id;
