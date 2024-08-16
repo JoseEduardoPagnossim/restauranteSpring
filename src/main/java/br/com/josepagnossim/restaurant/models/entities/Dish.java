@@ -21,6 +21,7 @@ public class Dish extends MenuItens{
     }
 
 
+
         public String getDescription () {
             return description;
         }
@@ -28,5 +29,7 @@ public class Dish extends MenuItens{
         public void setDescription (String description){
             this.description = description;
         }
+
+
 
 }

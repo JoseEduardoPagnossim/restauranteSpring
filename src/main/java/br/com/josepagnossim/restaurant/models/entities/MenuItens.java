@@ -6,9 +6,12 @@ import jakarta.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class MenuItens {
 
-    private MenuItemType menuItem;
+    private MenuItemType menuItemType;
     private String name;
     private double price;
+
+    public MenuItens() {
+    }
 
     public String getName() {
         return name;
@@ -27,10 +30,10 @@ public abstract class MenuItens {
     }
 
     public MenuItemType getMenuItem() {
-        return menuItem;
+        return menuItemType;
     }
 
     public void setMenuItem(MenuItemType menuItem) {
-        this.menuItem = menuItem;
+        this.menuItemType = menuItem;
     }
 }

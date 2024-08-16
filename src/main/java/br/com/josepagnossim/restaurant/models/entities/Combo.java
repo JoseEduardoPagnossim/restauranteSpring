@@ -1,9 +1,8 @@
 package br.com.josepagnossim.restaurant.models.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,20 +12,13 @@ public class Combo {
     @Id
     private UUID id;
     private String name;
+    private double price;
 
-    @OneToMany
-    private List<ComboItem> itens;
+    @OneToMany(mappedBy = "combo", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<ComboItem> itens = new ArrayList<>();
 
-    public String getName() {
-        return name;
-    }
+    public Combo() {
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setItens(List<ComboItem> itens) {
-        this.itens = itens;
     }
 
     public UUID getId() {
@@ -37,8 +29,42 @@ public class Combo {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public List<ComboItem> getItens() {
         return itens;
     }
 
+    public void setItens(List<ComboItem> itens) {
+        this.itens.clear();
+        if(itens != null) {
+            for(ComboItem item : itens) {
+                this.itens.add(item);
+            }
+        }
+    }
+
+    public void addItem(ComboItem item) {
+        itens.add(item);
+        item.setCombo(this);
+    }
+
+    public void removeItem(ComboItem item) {
+        itens.remove(item);
+        item.setCombo(null);
+    }
 }

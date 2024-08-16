@@ -29,7 +29,6 @@ public class DishService {
         dish.setId(UUID.randomUUID());
         dish.setName(dishDto.nameDish());
         dish.setMenuItem(dishDto.menuItens());
-        dish.setDescription(dishDto.dishDescription());
         dish.setPrice(dishDto.priceDish());
         return dishRepository.save(dish);
     }
