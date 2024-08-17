@@ -1,5 +1,6 @@
 package br.com.josepagnossim.restaurant.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-public class Combo {
+public class Combo extends MenuItens{
 
     @Id
     private UUID id;
@@ -15,6 +16,7 @@ public class Combo {
     private double price;
 
     @OneToMany(mappedBy = "combo", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonManagedReference
     private List<ComboItem> itens = new ArrayList<>();
 
     public Combo() {
@@ -52,19 +54,18 @@ public class Combo {
     public void setItens(List<ComboItem> itens) {
         this.itens.clear();
         if(itens != null) {
-            for(ComboItem item : itens) {
-                this.itens.add(item);
-            }
+            this.itens.addAll(itens);
         }
     }
 
     public void addItem(ComboItem item) {
-        itens.add(item);
-        item.setCombo(this);
+        item.setId(UUID.randomUUID()); // Gera um ID para o ComboItem
+        this.itens.add(item);
     }
 
-    public void removeItem(ComboItem item) {
-        itens.remove(item);
-        item.setCombo(null);
+    public void addItems(List<ComboItem> items) {
+        for (ComboItem item : items) {
+            addItem(item);
+        }
     }
 }

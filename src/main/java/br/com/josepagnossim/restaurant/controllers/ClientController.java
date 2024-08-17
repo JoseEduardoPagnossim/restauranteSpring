@@ -17,8 +17,6 @@ public class ClientController {
     @Autowired
     ClientService clientService;
 
-//    @Id
-//    private final UUID id = UUID.randomUUID();
 
     @PostMapping
     public Client create(@RequestBody ClientDto clientDto) {

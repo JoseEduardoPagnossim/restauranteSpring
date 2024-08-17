@@ -3,6 +3,7 @@ package br.com.josepagnossim.restaurant.services;
 import br.com.josepagnossim.restaurant.models.dtos.ClientDto;
 import br.com.josepagnossim.restaurant.models.entities.Client;
 import br.com.josepagnossim.restaurant.models.repositories.ClientRepository;
+import br.com.josepagnossim.restaurant.models.repositories.ComboRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ public class ClientService {
     private ClientRepository clientRepository;
     @Autowired
     private DataSourceTransactionManagerAutoConfiguration dataSourceTransactionManagerAutoConfiguration;
+    @Autowired
+    private ComboRepository comboRepository;
 
     public ClientService(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
@@ -64,4 +67,6 @@ public class ClientService {
         Client client = findById(id);
         clientRepository.delete(client);
     }
+
+
 }

@@ -1,16 +1,16 @@
 package br.com.josepagnossim.restaurant.models.entities;
 
+import br.com.josepagnossim.restaurant.models.repositories.Payment;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 import java.util.UUID;
 
 @Entity
-public class Dish extends MenuItens{
+public class PayMoney implements Payment {
 
     @Id
     private UUID id;
-
 
     public UUID getId() {
         return id;
@@ -20,5 +20,8 @@ public class Dish extends MenuItens{
         this.id = id;
     }
 
+    @Override
+    public void pay() {
 
+    }
 }

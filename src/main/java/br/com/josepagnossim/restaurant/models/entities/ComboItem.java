@@ -2,6 +2,8 @@ package br.com.josepagnossim.restaurant.models.entities;
 
 import br.com.josepagnossim.restaurant.models.enums.ItemType;
 import br.com.josepagnossim.restaurant.models.enums.MenuItemType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -10,7 +12,7 @@ import jakarta.persistence.ManyToOne;
 import java.util.UUID;
 
 @Entity
-public class ComboItem extends MenuItens {
+public class ComboItem{
 
     @Id
     private UUID id;
@@ -22,6 +24,7 @@ public class ComboItem extends MenuItens {
 
     @ManyToOne
     @JoinColumn(name = "comboId")
+    @JsonBackReference
     private Combo combo;
 
 
@@ -29,13 +32,11 @@ public class ComboItem extends MenuItens {
 
     }
 
-    public ComboItem(UUID id, UUID itemId, String description, ItemType itemType, MenuItemType menuItemType, Combo combo) {
+    public ComboItem(UUID id, UUID itemId, String description, ItemType itemType) {
         this.id = id;
         this.itemId = itemId;
         this.description = description;
         this.itemType = itemType;
-        this.menuItemType = menuItemType;
-        this.combo = combo;
     }
 
     public UUID getId() {
@@ -62,7 +63,7 @@ public class ComboItem extends MenuItens {
         if(itemType == ItemType.COMBO){
             throw new IllegalArgumentException("Não é possivel adicionar um combo a um combo");
         } else {
-            this.itemType = itemType;
+            this    .itemType = itemType;
         }
     }
 
