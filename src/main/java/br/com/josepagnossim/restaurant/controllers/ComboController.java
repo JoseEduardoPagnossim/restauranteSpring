@@ -37,7 +37,7 @@ public class ComboController {
         return comboService.findByName(name);
     }
 
-    @PutMapping("/{/id}")
+    @PutMapping("/{id}")
     public Combo update(@PathVariable UUID id, @RequestBody ComboDto combodto) {
         return comboService.updateCombo(id, combodto);
     }

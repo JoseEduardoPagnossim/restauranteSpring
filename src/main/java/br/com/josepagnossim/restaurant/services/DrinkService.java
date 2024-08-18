@@ -13,9 +13,10 @@ import java.util.UUID;
 @Service
 public class DrinkService {
 
-    @Autowired
-    private DrinkRepository drinkRepository;
 
+    final DrinkRepository drinkRepository;
+
+    @Autowired
     public DrinkService(DrinkRepository drinkRepository) {
         this.drinkRepository = drinkRepository;
     }

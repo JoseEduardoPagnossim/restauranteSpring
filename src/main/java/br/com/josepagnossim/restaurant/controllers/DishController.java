@@ -14,9 +14,8 @@ import java.util.UUID;
 @RequestMapping("/dish")
 public class DishController {
 
-
     @Autowired
-    DishService dishService;
+    private DishService dishService;
 
     @PostMapping
     public Dish create(@RequestBody DishDto dishDto) {
