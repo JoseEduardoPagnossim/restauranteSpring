@@ -38,7 +38,6 @@ public class ComboService {
         // Lista para armazenar ComboItems
         List<ComboItem> comboItems = new ArrayList<>();
 
-        // Itera sobre os IDs dos itens no ComboDto
         for (UUID itemId : comboDto.comboItemIds()) {
             // Cria ComboItem com base no tipo de item
             ComboItem comboItem = new ComboItem();

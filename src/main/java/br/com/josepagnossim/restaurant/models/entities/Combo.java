@@ -59,7 +59,7 @@ public class Combo extends MenuItens{
     }
 
     public void addItem(ComboItem item) {
-        item.setId(UUID.randomUUID()); // Gera um ID para o ComboItem
+        item.setId(UUID.randomUUID());
         this.itens.add(item);
     }
 

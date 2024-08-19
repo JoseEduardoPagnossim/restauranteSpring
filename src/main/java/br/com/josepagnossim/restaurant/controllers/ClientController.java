@@ -53,4 +53,5 @@ public class ClientController {
         clientService.deleteClient(id);
         return ResponseEntity.ok("Client deleted");
     }
+
 }

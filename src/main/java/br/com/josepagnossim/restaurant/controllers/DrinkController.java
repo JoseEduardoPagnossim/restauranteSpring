@@ -17,7 +17,11 @@ import java.util.UUID;
 public class DrinkController {
 
     @Autowired
-    private DrinkService drinkService;
+    final DrinkService drinkService;
+
+    public DrinkController(DrinkService drinkService) {
+        this.drinkService = drinkService;
+    }
 
     @PostMapping
     public Drink create(@RequestBody DrinkDto drinkdto) {

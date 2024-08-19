@@ -14,8 +14,12 @@ import java.util.UUID;
 @RequestMapping("/combo")
 public class ComboController {
 
+    final ComboService comboService;
+
     @Autowired
-    ComboService comboService;
+    public ComboController(ComboService comboService) {
+        this.comboService = comboService;
+    }
 
     @PostMapping
     public Combo create(@RequestBody ComboDto combodto) {

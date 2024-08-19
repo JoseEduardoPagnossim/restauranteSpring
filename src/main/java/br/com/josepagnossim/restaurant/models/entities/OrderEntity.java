@@ -1,5 +1,6 @@
 package br.com.josepagnossim.restaurant.models.entities;
 
+import br.com.josepagnossim.restaurant.models.enums.PaymentType;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -23,7 +24,11 @@ public class OrderEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<OrderItem> items = new ArrayList<>();
 
-    // Getters and Setters
+    @Enumerated(EnumType.STRING)
+    private PaymentType paymentMethod;
+
+    private double change;
+
     public UUID getId() {
         return id;
     }
@@ -55,5 +60,23 @@ public class OrderEntity {
     public void setItems(List<OrderItem> items) {
         this.items = items;
     }
+
+
+    public PaymentType getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentType paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public double getChange() {
+        return change;
+    }
+
+    public void setChange(double change) {
+        this.change = change;
+    }
+
 
 }
