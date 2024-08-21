@@ -5,8 +5,6 @@ import br.com.josepagnossim.restaurant.models.dtos.PaymentDto;
 import br.com.josepagnossim.restaurant.models.entities.Client;
 import br.com.josepagnossim.restaurant.models.entities.OrderEntity;
 import br.com.josepagnossim.restaurant.models.entities.OrderItem;
-import br.com.josepagnossim.restaurant.models.entities.PaymentMethod;
-import br.com.josepagnossim.restaurant.models.enums.PaymentType;
 import br.com.josepagnossim.restaurant.models.repositories.ClientRepository;
 import br.com.josepagnossim.restaurant.models.repositories.OrderRepository;
 import br.com.josepagnossim.restaurant.models.repositories.PaymentMethodRepositiry;
@@ -109,6 +107,4 @@ public class OrderService {
 
             orderRepository.save(order);
     }
-
-
 }

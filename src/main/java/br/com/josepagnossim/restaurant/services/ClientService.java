@@ -1,11 +1,10 @@
 package br.com.josepagnossim.restaurant.services;
 
+import br.com.josepagnossim.restaurant.exceptions.ClientNotFound;
+import br.com.josepagnossim.restaurant.exceptions.InvalidInsertionOfClientData;
 import br.com.josepagnossim.restaurant.models.dtos.ClientDto;
 import br.com.josepagnossim.restaurant.models.entities.Client;
 import br.com.josepagnossim.restaurant.models.repositories.ClientRepository;
-import br.com.josepagnossim.restaurant.models.repositories.ComboRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,23 +14,22 @@ import java.util.UUID;
 @Service
 public class ClientService {
 
-    @Autowired
     private ClientRepository clientRepository;
-    @Autowired
-    private DataSourceTransactionManagerAutoConfiguration dataSourceTransactionManagerAutoConfiguration;
-    @Autowired
-    private ComboRepository comboRepository;
 
-    public ClientService(ClientRepository clientRepository) {
+    private ClientService(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
 
     public Client create(ClientDto clientDto) {
-        Client client = new Client();
-        client.setId(UUID.randomUUID());
-        client.setName(clientDto.name());
-        client.setDocument(clientDto.document());
-        return clientRepository.save(client);
+        if (clientDto.name() == null || clientDto.document() == null) {
+            throw new InvalidInsertionOfClientData("Client name and document are required");
+        } else {
+            Client client = new Client();
+            client.setId(UUID.randomUUID());
+            client.setName(clientDto.name());
+            client.setDocument(clientDto.document());
+            return clientRepository.save(client);
+        }
     }
 
     public List<Client> findAll() {
@@ -39,7 +37,8 @@ public class ClientService {
     }
 
     public Client findById(UUID id) {
-        return clientRepository.findById(id).orElseThrow(() -> new RuntimeException("ID not found"));
+        return clientRepository.findById(id)
+                .orElseThrow(() -> new ClientNotFound("Client not found for the ID " + id));
     }
 
     public List<Client> findByName(String name) {
@@ -57,16 +56,13 @@ public class ClientService {
             client = optionalClient.get();
             client.setName(clientDto.name());
             client.setDocument(clientDto.document());
+            return clientRepository.save(client);
         } else {
-            System.out.println("Client not found");
+            throw new ClientNotFound("Client not found for update, for the id provided " + id);
         }
-        return clientRepository.save(client);
     }
 
     public void deleteClient(UUID id) {
-        Client client = findById(id);
-        clientRepository.delete(client);
+        clientRepository.deleteById(id);
     }
-
-
 }

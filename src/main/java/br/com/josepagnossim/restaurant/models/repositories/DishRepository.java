@@ -1,6 +1,5 @@
 package br.com.josepagnossim.restaurant.models.repositories;
 
-import br.com.josepagnossim.restaurant.models.entities.Client;
 import br.com.josepagnossim.restaurant.models.entities.Dish;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;

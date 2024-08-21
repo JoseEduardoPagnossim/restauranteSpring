@@ -3,11 +3,9 @@ package br.com.josepagnossim.restaurant.controllers;
 import br.com.josepagnossim.restaurant.models.dtos.OrderDto;
 import br.com.josepagnossim.restaurant.models.dtos.PaymentDto;
 import br.com.josepagnossim.restaurant.models.entities.OrderEntity;
-import br.com.josepagnossim.restaurant.models.enums.PaymentType;
 import br.com.josepagnossim.restaurant.services.ClientService;
 import br.com.josepagnossim.restaurant.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

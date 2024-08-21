@@ -4,7 +4,6 @@ import br.com.josepagnossim.restaurant.models.dtos.ClientDto;
 import br.com.josepagnossim.restaurant.models.entities.Client;
 import br.com.josepagnossim.restaurant.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,9 +13,13 @@ import java.util.UUID;
 @RequestMapping("/client")
 public class ClientController {
 
-    @Autowired
-    ClientService clientService;
 
+    private final ClientService clientService;
+
+    @Autowired
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
+    }
 
     @PostMapping
     public Client create(@RequestBody ClientDto clientDto) {
@@ -49,9 +52,8 @@ public class ClientController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteClient(@PathVariable UUID id) {
+    public void deleteClient(@PathVariable UUID id) {
         clientService.deleteClient(id);
-        return ResponseEntity.ok("Client deleted");
     }
 
 }
