@@ -1,6 +1,6 @@
 package br.com.josepagnossim.restaurant.models.dtos;
 
-import br.com.josepagnossim.restaurant.models.enums.MenuItemType;
+import br.com.josepagnossim.restaurant.models.enums.DishCategory;
 
-public record DishDto (String nameDish, double priceDish, MenuItemType menuItens){
+public record DishDto (String name, double price, DishCategory dishCategory){
 }

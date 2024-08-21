@@ -5,7 +5,6 @@ import br.com.josepagnossim.restaurant.models.dtos.DrinkDto;
 import br.com.josepagnossim.restaurant.models.entities.Drink;
 import br.com.josepagnossim.restaurant.services.DrinkService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,10 +14,10 @@ import java.util.UUID;
 @RequestMapping("/drink")
 public class DrinkController {
 
-    @Autowired
-    final DrinkService drinkService;
+    private final DrinkService drinkService;
 
-    public DrinkController(DrinkService drinkService) {
+    @Autowired
+    private DrinkController(DrinkService drinkService) {
         this.drinkService = drinkService;
     }
 
@@ -53,10 +52,7 @@ public class DrinkController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable UUID id) {
+    public void delete(@PathVariable UUID id) {
         drinkService.delete(id);
-        return ResponseEntity.ok("Drink deleted successfully");
     }
-
-
 }

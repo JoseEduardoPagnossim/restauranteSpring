@@ -9,6 +9,7 @@ import br.com.josepagnossim.restaurant.models.repositories.DrinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,9 +18,9 @@ import java.util.UUID;
 @Service
 public class ComboService {
 
-    private ComboRepository comboRepository;
-    private DishRepository dishRepository;
-    private DrinkRepository drinkRepository;
+    private final ComboRepository comboRepository;
+    private final DishRepository dishRepository;
+    private final DrinkRepository drinkRepository;
 
     @Autowired
     public ComboService(ComboRepository comboRepository, DishRepository dishRepository, DrinkRepository drinkRepository) {
@@ -39,36 +40,38 @@ public class ComboService {
         List<ComboItem> comboItems = new ArrayList<>();
 
         for (UUID itemId : comboDto.comboItemIds()) {
-            // Cria ComboItem com base no tipo de item
-            ComboItem comboItem = new ComboItem();
-            comboItem.setId(UUID.randomUUID()); // Gera um ID para ComboItem
-            comboItem.setItemId(itemId);
-
-            // Identifica o tipo de item e busca o correspondente Dish ou Drink
+            // Busca o item cadastrado anteriormente
             Optional<Dish> dish = dishRepository.findById(itemId);
             Optional<Drink> drink = drinkRepository.findById(itemId);
 
+            // Verifica se o item é Dish ou Drink
+            ComboItem comboItem = new ComboItem();
+            comboItem.setId(UUID.randomUUID()); // Gera um UUID para o ComboItem
+            comboItem.setCombo(combo); // Associa o ComboItem ao Combo
+
             if (dish.isPresent()) {
                 Dish dishItem = dish.get();
-                comboItem.setItemType(ItemType.DISH);
+                comboItem.setMenuItem(ItemType.DISH); // Define como prato
                 comboItem.setDescription(dishItem.getName() + " - " + dishItem.getPrice());
-                comboItem.setMenuItemType(dishItem.getMenuItem());
+                comboItem.setItemId(dishItem.getId()); // Usa o ID do prato
+
             } else if (drink.isPresent()) {
                 Drink drinkItem = drink.get();
-                comboItem.setItemType(ItemType.DRINK);
+                comboItem.setMenuItem(ItemType.DRINK); // Define como bebida
                 comboItem.setDescription(drinkItem.getName() + " - " + drinkItem.getPrice());
-                comboItem.setMenuItemType(drinkItem.getMenuItem());
+                comboItem.setItemId(drinkItem.getId()); // Usa o ID da bebida
             } else {
                 throw new RuntimeException("Item not found: " + itemId);
             }
 
-            // Associa o ComboItem ao Combo
-            comboItem.setCombo(combo);
+            // Adiciona o ComboItem à lista
             comboItems.add(comboItem);
         }
 
-        // Associa os ComboItems ao Combo e salva o Combo
+        // Associa os ComboItems ao combo
         combo.setItens(comboItems);
+
+        // Salva o combo no repositório (presumivelmente com um ComboRepository)
         return comboRepository.save(combo);
     }
 
@@ -107,7 +110,7 @@ public class ComboService {
             comboItem.setId(UUID.randomUUID());
             comboItem.setItemId(itemId);
             comboItem.setDescription(menuItem.getName() + " - " + menuItem.getPrice());
-            comboItem.setItemType(itemType);
+            comboItem.setMenuItem(itemType);
             comboItem.setMenuItemType(menuItem.getMenuItem());
             comboItem.setCombo(combo);
 
@@ -119,11 +122,7 @@ public class ComboService {
     }
 
     public void delete(UUID id) {
-        if (comboRepository.existsById(id)) {
-            comboRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Combo not found: " + id);
-        }
+        comboRepository.deleteById(id);
     }
 
 }

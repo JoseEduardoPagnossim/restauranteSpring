@@ -1,8 +1,9 @@
 package br.com.josepagnossim.restaurant.services;
 
+import br.com.josepagnossim.restaurant.exceptions.menuitens.IdMenuItemNotFound;
 import br.com.josepagnossim.restaurant.models.dtos.DishDto;
 import br.com.josepagnossim.restaurant.models.entities.Dish;
-import br.com.josepagnossim.restaurant.models.repositories.ComboRepository;
+import br.com.josepagnossim.restaurant.models.enums.ItemType;
 import br.com.josepagnossim.restaurant.models.repositories.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,22 +15,20 @@ import java.util.UUID;
 @Service
 public class DishService {
 
-
-    private ComboRepository comboRepository;
+    private final DishRepository dishRepository;
 
     @Autowired
-    public DishService(DishRepository dishRepository) {
+    private DishService(DishRepository dishRepository) {
         this.dishRepository = dishRepository;
     }
-
-    private final DishRepository dishRepository;
 
     public Dish create(DishDto dishDto) {
         Dish dish = new Dish();
         dish.setId(UUID.randomUUID());
-        dish.setName(dishDto.nameDish());
-        dish.setMenuItem(dishDto.menuItens());
-        dish.setPrice(dishDto.priceDish());
+        dish.setName(dishDto.name());
+        dish.setMenuItemType(ItemType.DISH);
+        dish.setDishCategory(dishDto.dishCategory());
+        dish.setPrice(dishDto.price());
         return dishRepository.save(dish);
     }
 
@@ -38,7 +37,7 @@ public class DishService {
         }
 
         public Dish findById(UUID id) {
-            return dishRepository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
+            return dishRepository.findById(id).orElseThrow(() -> new IdMenuItemNotFound("Dish Not Found by ID " + id));
         }
 
         public List<Dish> findByNameDish(String nameDish){
@@ -46,12 +45,12 @@ public class DishService {
         }
 
         public Dish update(UUID id, DishDto dishDto) {
-            Optional<Dish> optionaldish = dishRepository.findById(id);
-            if (optionaldish.isPresent()) {
+            Optional<Dish> optiondish = dishRepository.findById(id);
+            if (optiondish.isPresent()) {
                 Dish dish = findById(id);
-                dish.setName(dishDto.nameDish());
-                dish.setPrice(dishDto.priceDish());
-                dish.setMenuItem(dishDto.menuItens());
+                dish.setName(dishDto.name());
+                dish.setPrice(dishDto.price());
+                dish.setDishCategory(dishDto.dishCategory());
                 return dishRepository.save(dish);
             } else {
                 throw new RuntimeException("Dish not found");
@@ -59,7 +58,6 @@ public class DishService {
         }
 
         public void delete(UUID id) {
-            Dish dish = findById(id);
             dishRepository.deleteById(id);
         }
 }

@@ -1,16 +1,29 @@
 package br.com.josepagnossim.restaurant.models.entities;
 
-import br.com.josepagnossim.restaurant.models.enums.MenuItemType;
+import br.com.josepagnossim.restaurant.models.enums.ItemType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+
+import java.util.UUID;
 
 @MappedSuperclass
 public abstract class MenuItens {
 
-    private MenuItemType menuItemType;
+    @Id
+    private UUID id;
     private String name;
     private double price;
+    @Enumerated(EnumType.STRING)
+    private ItemType menuItemType;
 
-    public MenuItens() {
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -29,11 +42,11 @@ public abstract class MenuItens {
         this.price = price;
     }
 
-    public MenuItemType getMenuItem() {
+    public ItemType getMenuItemType() {
         return menuItemType;
     }
 
-    public void setMenuItem(MenuItemType menuItem) {
-        this.menuItemType = menuItem;
+    public void setMenuItemType(ItemType menuItemType) {
+        this.menuItemType = menuItemType;
     }
 }

@@ -1,12 +1,8 @@
 package br.com.josepagnossim.restaurant.models.entities;
 
+import br.com.josepagnossim.restaurant.exceptions.menuitens.InvalidTypeInsertion;
 import br.com.josepagnossim.restaurant.models.enums.ItemType;
-import br.com.josepagnossim.restaurant.models.enums.MenuItemType;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
@@ -17,13 +13,11 @@ public class ComboItem{
     private UUID id;
 
     private UUID itemId;
+    @Enumerated(EnumType.STRING)
+    private ItemType menuItem;
     private String description;
-    private ItemType itemType;
-    private MenuItemType menuItemType;
 
     @ManyToOne
-    @JoinColumn(name = "comboId")
-    @JsonBackReference
     private Combo combo;
 
 
@@ -35,7 +29,7 @@ public class ComboItem{
         this.id = id;
         this.itemId = itemId;
         this.description = description;
-        this.itemType = itemType;
+        this.menuItem = itemType;
     }
 
     public UUID getId() {
@@ -54,25 +48,18 @@ public class ComboItem{
         this.description = description;
     }
 
-    public ItemType getItemType() {
-        return itemType;
+    public ItemType getMenuItem() {
+        return menuItem;
     }
 
-    public void setItemType(ItemType itemType) {
-        if(itemType == ItemType.COMBO){
-            throw new IllegalArgumentException("Não é possivel adicionar um combo a um combo");
+    public void setMenuItem(ItemType menuItem) {
+        if(menuItem == ItemType.COMBO){
+            throw new InvalidTypeInsertion("Type COMBO not supported");
         } else {
-            this    .itemType = itemType;
+            this.menuItem = menuItem;
         }
     }
 
-    public MenuItemType getMenuItemType() {
-        return menuItemType;
-    }
-
-    public void setMenuItemType(MenuItemType menuItemType) {
-        this.menuItemType = menuItemType;
-    }
 
     public UUID getItemId() {
         return itemId;

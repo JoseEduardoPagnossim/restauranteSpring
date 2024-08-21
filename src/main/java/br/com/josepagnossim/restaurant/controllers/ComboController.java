@@ -4,7 +4,6 @@ import br.com.josepagnossim.restaurant.models.dtos.ComboDto;
 import br.com.josepagnossim.restaurant.models.entities.Combo;
 import br.com.josepagnossim.restaurant.services.ComboService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,10 +13,10 @@ import java.util.UUID;
 @RequestMapping("/combo")
 public class ComboController {
 
-    final ComboService comboService;
+    private final ComboService comboService;
 
     @Autowired
-    public ComboController(ComboService comboService) {
+    private ComboController(ComboService comboService) {
         this.comboService = comboService;
     }
 
@@ -47,8 +46,7 @@ public class ComboController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable UUID id) {
+    public void delete(@PathVariable UUID id) {
         comboService.delete(id);
-        return ResponseEntity.ok("Combo Deleted");
     }
 }

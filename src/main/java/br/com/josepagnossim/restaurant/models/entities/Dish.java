@@ -1,24 +1,22 @@
 package br.com.josepagnossim.restaurant.models.entities;
 
+import br.com.josepagnossim.restaurant.models.enums.DishCategory;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-
-import java.util.UUID;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 @Entity
 public class Dish extends MenuItens{
 
-    @Id
-    private UUID id;
 
+    @Enumerated(EnumType.STRING)
+    private DishCategory dishCategory;
 
-    public UUID getId() {
-        return id;
+    public DishCategory getDishCategory() {
+        return dishCategory;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setDishCategory(DishCategory dishCategory) {
+        this.dishCategory = dishCategory;
     }
-
-
 }

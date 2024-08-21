@@ -1,7 +1,9 @@
 package br.com.josepagnossim.restaurant.services;
 
+import br.com.josepagnossim.restaurant.exceptions.menuitens.IdMenuItemNotFound;
 import br.com.josepagnossim.restaurant.models.dtos.DrinkDto;
 import br.com.josepagnossim.restaurant.models.entities.Drink;
+import br.com.josepagnossim.restaurant.models.enums.ItemType;
 import br.com.josepagnossim.restaurant.models.repositories.DrinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +15,7 @@ import java.util.UUID;
 @Service
 public class DrinkService {
 
-
-    final DrinkRepository drinkRepository;
+    private final DrinkRepository drinkRepository;
 
     @Autowired
     public DrinkService(DrinkRepository drinkRepository) {
@@ -24,9 +25,9 @@ public class DrinkService {
     public Drink create(DrinkDto drinkDto) {
         Drink drink = new Drink();
         drink.setId(UUID.randomUUID());
-        drink.setName(drinkDto.nameDrink());
-        drink.setMenuItem(drinkDto.menuItem());
-        drink.setPrice(drinkDto.priceDrink());
+        drink.setName(drinkDto.name());
+        drink.setMenuItemType(ItemType.DRINK);
+        drink.setPrice(drinkDto.price());
         drink.setBrand(drinkDto.brand());
         return drinkRepository.save(drink);
     }
@@ -36,7 +37,8 @@ public class DrinkService {
     }
 
     public Drink findById(UUID id) {
-        return drinkRepository.findById(id).orElseThrow(() -> new RuntimeException("Id not found"));
+        return drinkRepository.findById(id)
+                .orElseThrow(() -> new IdMenuItemNotFound("Drink Not Found by ID " + id));
     }
 
     public List<Drink> findByNameDrink(String nameDrink){
@@ -51,22 +53,16 @@ public class DrinkService {
         Optional<Drink> optionaldrink = drinkRepository.findById(id);
         if (optionaldrink.isPresent()) {
             Drink drink = findById(id);
-            drink.setName(drinkDto.nameDrink());
-            drink.setPrice(drinkDto.priceDrink());
+            drink.setName(drinkDto.name());
+            drink.setPrice(drinkDto.price());
             drink.setBrand(drinkDto.brand());
             return drinkRepository.save(drink);
         } else {
-            throw new RuntimeException("Drink not found");
+            throw new IdMenuItemNotFound("Drink Not Found for update by ID " + id);
         }
     }
 
     public void delete(UUID id) {
-        Drink drink = findById(id);
         drinkRepository.deleteById(id);
     }
-
-
-
-
-
 }

@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface DishRepository extends JpaRepository<Dish, UUID> {
 
-    List<Dish> findByNameContainingIgnoreCase(@Param("nameDish") String name);
+    List<Dish> findByNameContainingIgnoreCase(String name);
 
 
 

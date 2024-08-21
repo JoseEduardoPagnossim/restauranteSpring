@@ -14,10 +14,10 @@ import java.util.UUID;
 @RequestMapping("/dish")
 public class DishController {
 
-    final DishService dishService;
+    private final DishService dishService;
 
     @Autowired
-    public DishController(DishService dishService) {
+    private DishController(DishService dishService) {
         this.dishService = dishService;
     }
 
@@ -47,8 +47,7 @@ public class DishController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable UUID id) {
+    public void delete(@PathVariable UUID id) {
         dishService.delete(id);
-        return ResponseEntity.ok("Drink deleted successfully");
     }
 }

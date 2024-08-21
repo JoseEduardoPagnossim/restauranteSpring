@@ -1,7 +1,7 @@
 package br.com.josepagnossim.restaurant.services;
 
-import br.com.josepagnossim.restaurant.exceptions.ClientNotFound;
-import br.com.josepagnossim.restaurant.exceptions.InvalidInsertionOfClientData;
+import br.com.josepagnossim.restaurant.exceptions.client.ClientNotFound;
+import br.com.josepagnossim.restaurant.exceptions.client.InvalidInsertionOfClientData;
 import br.com.josepagnossim.restaurant.models.dtos.ClientDto;
 import br.com.josepagnossim.restaurant.models.entities.Client;
 import br.com.josepagnossim.restaurant.models.repositories.ClientRepository;
@@ -14,7 +14,7 @@ import java.util.UUID;
 @Service
 public class ClientService {
 
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
     private ClientService(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
